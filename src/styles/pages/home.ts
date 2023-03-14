@@ -1,26 +1,28 @@
-import { styled } from "..";
+import { styled } from '..'
 
 export const HomeContainer = styled('main', {
   display: 'flex',
   width: '100%',
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
-  minHeight: 656
+  minHeight: 656,
 })
 
 export const Product = styled('div', {
   background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
   borderRadius: 8,
-  cursor: 'pointer',
   position: 'relative',
   overflow: 'hidden',
-  
+
+  'min-width': '43.5rem',
+  height: '41.5rem',
+
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
 
   img: {
-    objectFit: 'cover'
+    objectFit: 'cover',
   },
 
   footer: {
@@ -42,23 +44,62 @@ export const Product = styled('div', {
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
-    strong: {
-      fontSize: '$lg',
-      color: '$gray100'
+    '.handBagBox': {
+      display: 'flex',
+      'flex-direction': 'row',
+      'align-items': 'center',
+      padding: '0.75rem',
+      gap: '0.75rem',
+      transition: 'background 0.2s ease',
+
+      width: '3.5rem',
+      height: '3.5rem',
+
+      background: '$green500',
+      'border-radius': 6,
+      cursor: 'pointer',
+
+      '&:hover': {
+        background: '$green300',
+      },
     },
 
-    span: {
-      fontSize: '$xl',
-      fontWeight: 'bold',
-      color: '$green300'
-    }
+    '.infoBox': {
+      display: 'flex',
+      flexDirection: 'column',
+      textDecoration: 'none',
+
+      strong: {
+        fontSize: '$lg',
+        color: '$gray300',
+        cursor: 'pointer',
+        transition: 'color 0.2s ease',
+      },
+
+      span: {
+        fontSize: '$xl',
+        fontWeight: 'bold',
+        color: '$green500',
+        cursor: 'pointer',
+        transition: 'color 0.2s ease',
+      },
+
+      '&:hover': {
+        strong: {
+          color: '$gray100',
+        },
+
+        span: {
+          color: '$green300',
+        },
+      },
+    },
   },
 
   '&:hover': {
     footer: {
       transform: 'translateY(0%)',
-      opacity: 1
-    }
-  }
-
+      opacity: 1,
+    },
+  },
 })

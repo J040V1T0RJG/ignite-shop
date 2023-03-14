@@ -1,4 +1,4 @@
-import { styled } from "..";
+import { styled } from '..'
 
 export const ProductContainer = styled('main', {
   display: 'grid',
@@ -7,8 +7,7 @@ export const ProductContainer = styled('main', {
   gap: '4rem',
 
   maxWidth: 1180,
-  margin: '0 auto'
-
+  margin: '0 auto',
 })
 
 export const ImageContainer = styled('div', {
@@ -25,7 +24,7 @@ export const ImageContainer = styled('div', {
 
   img: {
     objectFit: 'cover',
-  }
+  },
 })
 
 export const ProductDetails = styled('div', {
@@ -48,7 +47,7 @@ export const ProductDetails = styled('div', {
     marginTop: '2.5rem',
     fontSize: '$md',
     lineHeight: 1.6,
-    color: '$gray300'
+    color: '$gray300',
   },
 
   button: {
@@ -61,14 +60,15 @@ export const ProductDetails = styled('div', {
     cursor: 'pointer',
     fontWeight: 'bold',
     fontSize: '$md',
+    transition: 'background 0.2s ease',
 
     '&:disabled': {
       opacity: 0.6,
-      cursor: 'not-allowed'
+      cursor: 'not-allowed',
     },
 
     '&:not(:disabled):hover': {
       backgroundColor: '$green300',
-    }
-  }
+    },
+  },
 })
