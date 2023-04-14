@@ -44,13 +44,15 @@ export const Product = styled('div', {
     opacity: 0,
     transition: 'all 0.2s ease-in-out',
 
-    '.handBagBox': {
+    button: {
       display: 'flex',
       'flex-direction': 'row',
       'align-items': 'center',
       padding: '0.75rem',
       gap: '0.75rem',
       transition: 'background 0.2s ease',
+
+      border: 'none',
 
       width: '3.5rem',
       height: '3.5rem',
