@@ -43,21 +43,6 @@ export default function Product({ product }: ProductProps) {
     currency: product.currency,
   }
 
-  // async function handleBuyProduct() {
-  //   try {
-  //     setIsCreatingCheckoutSession(true)
-  //     const response = await axios.post('/api/checkout', {
-  //       priceId: product.defaultPriceId,
-  //     })
-
-  //     const { checkoutUrl } = response.data
-  //     window.location.href = checkoutUrl
-  //   } catch (error) {
-  //     setIsCreatingCheckoutSession(false)
-  //     alert('Falha ao redirecionar ao checkout')
-  //   }
-  // }
-
   return (
     <>
       <Head>
@@ -100,6 +85,8 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
   const price = product.default_price as Stripe.Price
 
   const timeInHours = 60 * 60 * 1 // 1 hour
+
+  console.log('teste =>', product.id, price.id)
 
   return {
     props: {

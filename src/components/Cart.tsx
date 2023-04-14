@@ -10,8 +10,13 @@ import {
   Content,
   Overlay,
 } from '../styles/components/cart'
+import { useState } from 'react'
+import axios from 'axios'
+import { PulseLoader } from 'react-spinners'
 
 export function Cart() {
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState<boolean>(false)
   const cart = useShoppingCart()
   const {
     cartCount,
@@ -20,7 +25,31 @@ export function Cart() {
     removeItem,
     incrementItem,
     decrementItem,
+    clearCart,
   } = cart
+
+  async function handleBuyProducts() {
+    if (cartCount === 0) {
+      alert('Falha ao redirecionar ao checkout, o carrinho está vazio')
+      return
+    }
+
+    const productsId = Object.values(cartDetails).map((element) => {
+      return { prod_id: element.id, quantity: element.quantity }
+    })
+
+    try {
+      setIsCreatingCheckoutSession(true)
+      const response = await axios.post('/api/checkout', { productsId })
+      const { checkoutUrl } = response.data
+
+      clearCart()
+      window.location.href = checkoutUrl
+    } catch (error) {
+      setIsCreatingCheckoutSession(false)
+      alert('Falha ao redirecionar ao checkout')
+    }
+  }
 
   return (
     <Dialog.Portal>
@@ -50,15 +79,24 @@ export function Cart() {
                     </strong>
                   </p>
                   <span>
-                    <button onClick={() => removeItem(pieceOfClothing.id)}>
+                    <button
+                      onClick={() => removeItem(pieceOfClothing.id)}
+                      disabled={isCreatingCheckoutSession}
+                    >
                       <p>Remover</p>
                     </button>
                     <div className="incrementAndDecrement">
-                      <button onClick={() => incrementItem(pieceOfClothing.id)}>
+                      <button
+                        onClick={() => incrementItem(pieceOfClothing.id)}
+                        disabled={isCreatingCheckoutSession}
+                      >
                         <Plus />
                       </button>
                       {pieceOfClothing.quantity}
-                      <button onClick={() => decrementItem(pieceOfClothing.id)}>
+                      <button
+                        onClick={() => decrementItem(pieceOfClothing.id)}
+                        disabled={isCreatingCheckoutSession}
+                      >
                         <Minus />
                       </button>
                     </div>
@@ -81,8 +119,15 @@ export function Cart() {
               <strong>{formatPriceToInteger(totalPrice)}</strong>
             </p>
           </div>
-          <button type="submit">
-            <p>Finalizar compra</p>
+          <button
+            disabled={isCreatingCheckoutSession}
+            onClick={() => handleBuyProducts()}
+          >
+            {isCreatingCheckoutSession ? (
+              <PulseLoader color="white" />
+            ) : (
+              <p>Finalizar compra</p>
+            )}
           </button>
         </footer>
       </Content>

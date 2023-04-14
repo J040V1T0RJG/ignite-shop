@@ -84,8 +84,12 @@ export const Content = styled(Dialog.Content, {
         color: '$white',
       },
 
-      '&:hover': {
-        background: '$green300',
+      '&:not(:disabled):hover': {
+        backgroundColor: '$green300',
+      },
+
+      '&:disabled': {
+        cursor: 'not-allowed',
       },
     },
   },
