@@ -86,8 +86,6 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
 
   const timeInHours = 60 * 60 * 1 // 1 hour
 
-  console.log('teste =>', product.id, price.id)
-
   return {
     props: {
       product: {

@@ -13,6 +13,7 @@ import {
 import { useState } from 'react'
 import axios from 'axios'
 import { PulseLoader } from 'react-spinners'
+import { NextURL } from 'next/dist/server/web/next-url'
 
 export function Cart() {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
