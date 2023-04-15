@@ -14,7 +14,7 @@ export const Product = styled('div', {
   position: 'relative',
   overflow: 'hidden',
 
-  'min-width': '43.5rem',
+  minWidth: '43.5rem',
   height: '41.5rem',
 
   display: 'flex',

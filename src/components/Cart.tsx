@@ -2,6 +2,9 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Minus, Plus, X } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { useShoppingCart } from 'use-shopping-cart'
+import { useState } from 'react'
+import axios from 'axios'
+import { PulseLoader } from 'react-spinners'
 
 import { formatPriceToInteger } from '../utils/format'
 import {
@@ -10,10 +13,6 @@ import {
   Content,
   Overlay,
 } from '../styles/components/cart'
-import { useState } from 'react'
-import axios from 'axios'
-import { PulseLoader } from 'react-spinners'
-import { NextURL } from 'next/dist/server/web/next-url'
 
 export function Cart() {
   const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =

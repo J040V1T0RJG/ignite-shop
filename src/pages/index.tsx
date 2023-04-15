@@ -7,6 +7,8 @@ import Link from 'next/link'
 import Head from 'next/head'
 import { Handbag } from '@phosphor-icons/react'
 import { useShoppingCart } from 'use-shopping-cart'
+import { useRouter } from 'next/router'
+import { Skeleton } from '@mui/material'
 
 import { HomeContainer, Product } from '../styles/pages/home'
 import { stripe } from '../libs/stripe'
@@ -24,6 +26,7 @@ interface HomeProps {
 }
 
 export default function Home({ products }: HomeProps) {
+  const { isFallback } = useRouter()
   const [sliderRef] = useKeenSlider({
     slides: {
       perView: 'auto',
@@ -32,6 +35,53 @@ export default function Home({ products }: HomeProps) {
   })
   const cart = useShoppingCart()
   const { addItem } = cart
+
+  if (isFallback) {
+    return (
+      <>
+        <Head>
+          <title>Home | Ignite Shop</title>
+        </Head>
+
+        <HomeContainer ref={sliderRef} className="keen-slider">
+          {[1, 2, 3, 4].map((render) => {
+            return (
+              <div
+                className="keen-slider__slide"
+                key={render}
+                style={{ minWidth: '43.5rem' }}
+              >
+                <Skeleton
+                  variant="rounded"
+                  height={600}
+                  animation="wave"
+                  sx={{ bgcolor: '#202024' }}
+                />
+                <div
+                  style={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <Skeleton
+                    variant="text"
+                    width={330}
+                    height={46}
+                    animation="wave"
+                    sx={{ bgcolor: '#202024' }}
+                  />
+                  <Skeleton
+                    variant="text"
+                    width={100}
+                    height={46}
+                    animation="wave"
+                    sx={{ bgcolor: '#202024' }}
+                  />
+                </div>
+              </div>
+            )
+          })}
+        </HomeContainer>
+      </>
+    )
+  }
 
   return (
     <>

@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Stripe from 'stripe'
 import { useShoppingCart } from 'use-shopping-cart'
+import { Skeleton } from '@mui/material'
 
 import { stripe } from '@/src/libs/stripe'
 import {
@@ -11,6 +12,7 @@ import {
   ProductContainer,
   ProductDetails,
 } from '@/src/styles/pages/product'
+import { formatPriceToInteger } from '@/src/utils/format'
 
 interface ProductProps {
   product: {
@@ -31,7 +33,50 @@ export default function Product({ product }: ProductProps) {
   const { addItem } = cart
 
   if (isFallback) {
-    return <h1>LOADING....</h1>
+    return (
+      <>
+        <Head>
+          <title> Camiseta | Ignite Shop</title>
+        </Head>
+
+        <ProductContainer>
+          <Skeleton
+            variant="rounded"
+            width={576}
+            height={656}
+            animation="wave"
+            sx={{ bgcolor: '#202024' }}
+          />
+          <ProductDetails>
+            <Skeleton
+              variant="text"
+              height={46}
+              animation="wave"
+              sx={{ bgcolor: '#202024' }}
+            />
+            <Skeleton
+              variant="text"
+              width={124}
+              animation="wave"
+              sx={{ bgcolor: '#202024' }}
+            />
+            <Skeleton
+              variant="text"
+              height={174}
+              animation="wave"
+              sx={{ bgcolor: '#202024' }}
+            />
+            <Skeleton
+              variant="rounded"
+              height={70}
+              animation="wave"
+              style={{ marginTop: 'auto' }}
+              sx={{ bgcolor: '#202024' }}
+            />
+          </ProductDetails>
+        </ProductContainer>
+      </>
+    )
   }
 
   const itemProduct = {
@@ -55,7 +100,7 @@ export default function Product({ product }: ProductProps) {
         </ImageContainer>
         <ProductDetails>
           <h1>{product.name}</h1>
-          <span>{product.price}</span>
+          <span>{formatPriceToInteger(product.price)}</span>
           <p>{product.description}</p>
           <button onClick={() => addItem(itemProduct)}>
             Colocar na sacola
